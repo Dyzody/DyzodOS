@@ -65,7 +65,7 @@ def Bootloader():
 
 def InitKernel():
     #Graphics Thread
-    
+
     print("Starting Main Graphics Thread")
     Graphics_Thread = threading.Thread(target=graphics_driver.InitGraphics, args=[settings.Fullscreen])
     Graphics_Thread.start()

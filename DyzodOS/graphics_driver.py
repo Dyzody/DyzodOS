@@ -25,7 +25,7 @@ def RenderStdOut(Flush=True):
         settings.screen.blit(TextObj, (0, 0+Index*StdOut_Render_Offset_Mul
                                        + settings.StdOut_offset.y * StdOut_Render_Offset_Mul))
         #print(f"Rendered TextObject {StdOut}")
-    settings.screen.blit(Bottom_Row, (0, settings.SCREEN_SIZE.y-10))
+    settings.screen.blit(Bottom_Row, (0, settings.SCREEN_SIZE.y-StdOut_Render_Offset_Mul))
     pygame.display.flip()
 
 #This adds a line to StdOut

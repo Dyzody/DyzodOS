@@ -7,14 +7,14 @@ HELP_PROMPT = """
 Here is a list of all commands:
 """
 
-SCREEN_SIZE = vectors.Vector2D(1000, 600)
+SCREEN_SIZE = vectors.Vector2D(1000, 800)
 REFRESH_RATE = 5
-Fullscreen = True
+Fullscreen = False
 
 Font = "Fonts/DOS.ttf"
 Font_Size = 40
 Line_Spacing = 1
-max_line_len = 100
+max_line_len = 75
 Max_StdOut_Len = 100
 
 CurrentUser = None
