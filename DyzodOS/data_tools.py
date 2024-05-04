@@ -1,14 +1,5 @@
+#Takes in an Input Value and either converts it to string or bytes
 def GetDataType(Inp, OutputType):
-    """
-    Converts input to the specified output type.
-
-    Parameters:
-    - Inp: Input string or bytes to be converted.
-    - OutputType: Type of output desired ('string' or 'bytes').
-
-    Returns:
-    - Converted input of the specified output type.
-    """
     if OutputType == 'string':
         if isinstance(Inp, bytes):
             result = Inp.decode()
