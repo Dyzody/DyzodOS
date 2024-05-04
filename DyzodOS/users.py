@@ -66,7 +66,7 @@ def UserSetup(AllowCancel=True):
             return
 
         if inp not in ["LOGIN", "SIGNUP"]: 
-            graphics_driver.WriteLn("Unknown Command")
+            graphics_driver.WriteLn("Invalid Input. LOGIN or SIGNUP ?")
             continue
 
         if inp == "LOGIN" and len(users) <= 0:
