@@ -1,3 +1,4 @@
+::Installs any dependecies and runs the Program
 cd /d %~dp0
 
 py -m pip install pygame
