@@ -15,7 +15,7 @@ def run(*args):
         return
     
     file_name = args[1]
-    file_path = os.path.join(file_name)
+    file_path = os.path.join("user_hdd/" + file_name)
     
     if not os.path.isfile(file_path):
         graphics_driver.WriteLn(f"Error: File '{file_name}' not found.")

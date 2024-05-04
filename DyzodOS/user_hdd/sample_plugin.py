@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../")
+
 import API
 
 API.WriteLine("Welcome to the Plugin!")
