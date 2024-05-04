@@ -25,7 +25,6 @@ def OnBoot():
     if not settings.Hard_Drive:
         return
     ClusterContent = hard_drive.GetClusterByName("Users")
-    print(len(ClusterContent))
     if len(ClusterContent) <= 0:
         return
     ClusterArray = ClusterContent.split(",")

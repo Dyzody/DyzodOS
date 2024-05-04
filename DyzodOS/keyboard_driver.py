@@ -19,10 +19,10 @@ def log_keystroke(event):
         InputBuffer = InputBuffer[:-1]
     elif key_name == "space":
         InputBuffer += " "
-    elif key_name == "nach-oben":
+    elif key_name == "nach-oben" or key_name == "up":
         settings.StdOut_offset.y += -settings.Line_Spacing
         #print("up")
-    elif key_name == "nach-unten":
+    elif key_name == "nach-unten" or key_name == "down":
         settings.StdOut_offset.y += settings.Line_Spacing
         #print("down")
     if len(key_name) > 1:
