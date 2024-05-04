@@ -75,7 +75,8 @@ def rm(*args):
 
     remove_folder = False
 
-    graphics_driver.WriteLn("Write -rf if you are trying to recursively delete a directory: (CANCEL = CANCEL)")
+    graphics_driver.WriteLn("""Write -rf if you are trying to recursively delete a directory: 
+Write anything else if you want to delete a normal file. (CANCEL = CANCEL)""")
     inp = keyboard_driver.Keyboard_Input()
 
     if inp.lower() == "-rf":
