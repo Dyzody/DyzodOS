@@ -1,6 +1,7 @@
 #LOWERCASE
 import os
 import sys
+import shutil
 
 import settings
 import keyboard_driver
@@ -19,7 +20,6 @@ def dir(*args):
 
 def cd(*args):
     pathlocation = args[1]
-    dir = settings.DEFAULT_PATH
     
     if pathlocation == "..":
         if settings.current_path != settings.DEFAULT_PATH:
@@ -28,12 +28,11 @@ def cd(*args):
     else:
         new_path = f"{pathlocation}"
         # Check if the new path exists
-        if os.path.exists(f"{dir}/{new_path}"):
-            settings.current_path = new_path
+        # TODO check double slash
+        if os.path.exists(f"{settings.get_dir()}{new_path}"):
+            settings.current_path += f"/{new_path}"
         else:
             graphics_driver.WriteLn("Directory not found.")
-
-    return settings.current_path
 
 def run(*args):
     if len(args) < 2:
@@ -70,9 +69,35 @@ def view_drive_content(*args):
     content = hard_drive.GetHddContent()
     graphics_driver.WriteLn(content)
 
-def rm_rf_no_preserve_root(*args):
-    hard_drive.Create()
-    graphics_driver.WriteLn("The Operation has completed successfully")
+def rm(*args):
+    name = settings.get_dir() + args[1]
+    success = False
+
+    remove_folder = False
+
+    graphics_driver.WriteLn("Write -rf if you are trying to recursively delete a directory: (CANCEL = CANCEL)")
+    inp = keyboard_driver.Keyboard_Input()
+
+    if inp.lower() == "-rf":
+        remove_folder = True
+    elif inp.lower() == "cancel":
+        return
+
+    if os.path.exists(name):
+        if os.path.isfile(name) and not remove_folder:
+            os.remove(name)
+            success = True
+            graphics_driver.WriteLn(f"File '{name}' removed successfully.")
+        elif os.path.isdir(name) and remove_folder:
+            shutil.rmtree(name)
+            graphics_driver.WriteLn(f"Directory '{name}' removed successfully.")
+            success = True
+    else:
+        graphics_driver.WriteLn(f"'{name}' does not exist.")
+
+    if not success:
+        graphics_driver.WriteLn("rm: Syntax error")
+
 
 def createuser(*args):
     users.User(args[1], args[2])

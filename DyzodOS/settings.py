@@ -9,7 +9,7 @@ Here is a list of all commands:
 
 SCREEN_SIZE = vectors.Vector2D(1000, 800)
 REFRESH_RATE = 5
-Fullscreen = False
+Fullscreen = True
 
 Font = "Fonts/DOS.ttf"
 Font_Size = 40
