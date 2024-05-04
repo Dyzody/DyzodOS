@@ -52,7 +52,8 @@ def WriteLn(Text):
 #The bottom row is where the User input is at
 def WriteBottomRow(Text):
     global Bottom_Row
-    Bottom_Row = font.render(settings.PreRenderBottomLine+Text, True, settings.TextColour, None)
+    Bottom_Row = font.render(f"{settings.PreRenderBottomLine}{settings.get_dir()} {Text}", 
+                             True, settings.TextColour, None)
 
 #Rendering Loop
 def InitGraphics(Fullscreen):

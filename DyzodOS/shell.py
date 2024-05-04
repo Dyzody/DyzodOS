@@ -4,10 +4,36 @@ import sys
 
 import settings
 import keyboard_driver
+import data_tools
 import graphics_driver
 import hard_drive
 import users
 import inspect
+
+def dir(*args):
+    directory = settings.get_dir()
+    dir_list = os.listdir(directory)
+    
+    for obj in dir_list:
+        graphics_driver.WriteLn(obj)
+
+def cd(*args):
+    pathlocation = args[1]
+    dir = settings.DEFAULT_PATH
+    
+    if pathlocation == "..":
+        if settings.current_path != settings.DEFAULT_PATH:
+            parent_dir = '/'.join(settings.current_path.split('/')[:-1])
+            settings.current_path = (parent_dir if parent_dir else "")
+    else:
+        new_path = f"{pathlocation}"
+        # Check if the new path exists
+        if os.path.exists(f"{dir}/{new_path}"):
+            settings.current_path = new_path
+        else:
+            graphics_driver.WriteLn("Directory not found.")
+
+    return settings.current_path
 
 def run(*args):
     if len(args) < 2:
@@ -15,7 +41,8 @@ def run(*args):
         return
     
     file_name = args[1]
-    file_path = os.path.join("user_hdd/" + file_name)
+    file_path = os.path.join(f"{settings.get_dir()}{file_name}")
+    print(file_path)
     
     if not os.path.isfile(file_path):
         graphics_driver.WriteLn(f"Error: File '{file_name}' not found.")

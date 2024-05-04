@@ -84,7 +84,6 @@ def InitKernel():
     Shell_Thread = threading.Thread(target=ListenForCommands)
     Shell_Thread.start()
     graphics_driver.WriteLn("Setup Complete")
-    settings.PreRenderBottomLine = "/"
     graphics_driver.WriteLn("TYPE HELP FOR HELP")
 
 

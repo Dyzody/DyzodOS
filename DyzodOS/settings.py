@@ -30,13 +30,23 @@ TextColour = WHITE
 
 OS_KEY = b'pDFVE6RdoxBwdQUnqKnfzSB9-ptvnjekJTm3pQzZUA8='
 OS_FERNET = Fernet(OS_KEY)
+DEFAULT_PATH = "user_hdd"
 Hard_Drive_Name = "Disk.bin"
 Hard_Drive_Chunk_Name_Len = 10
 DELIMITER = b"\n"
 
 #VAR
+current_path = ""
 Hard_Drive = Hard_Drive_Name
 IsGraphicsRunning = True
 screen, clock = None, None
 StdOut_offset = vectors.Vector2D(0, 0)
 PreRenderBottomLine = ""
+
+def get_dir():
+    current = f"{DEFAULT_PATH}/{current_path}"
+
+    if len(current_path) > 0:
+        current += "/"
+
+    return current
