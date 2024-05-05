@@ -73,34 +73,34 @@ def view_drive_content(*args):
     graphics_driver.WriteLn(content)
 
 def rm(*args):
-    name = settings.get_dir() + args[1]
-    success = False
-
+    
+    name = ""
     remove_folder = False
 
-    graphics_driver.WriteLn("""Write -rf if you are trying to recursively delete a directory: 
-Write anything else if you want to delete a normal file. (CANCEL = CANCEL)""")
-    inp = keyboard_driver.Keyboard_Input()
-
-    if inp.lower() == "-rf":
+    #Protect the user from themself
+    if args[1] == "-rf":
+        name = args[2]
         remove_folder = True
-    elif inp.lower() == "cancel":
-        return
+    else:
+        name = args[1]
+    
+    pathname = settings.get_dir() + name
+    success = False
 
-    if os.path.exists(name):
-        if os.path.isfile(name) and not remove_folder:
-            os.remove(name)
+    if os.path.exists(pathname):
+        if os.path.isfile(pathname) and not remove_folder:
+            os.remove(pathname)
             success = True
-            graphics_driver.WriteLn(f"File '{name}' removed successfully.")
-        elif os.path.isdir(name) and remove_folder:
-            shutil.rmtree(name)
-            graphics_driver.WriteLn(f"Directory '{name}' removed successfully.")
+            graphics_driver.WriteLn(f"File '{pathname}' removed successfully.")
+        elif os.path.isdir(pathname) and remove_folder:
+            shutil.rmtree(pathname)
+            graphics_driver.WriteLn(f"Directory '{pathname}' removed successfully.")
             success = True
     else:
-        graphics_driver.WriteLn(f"'{name}' does not exist.")
+        graphics_driver.WriteLn(f"'{pathname}' does not exist.")
 
     if not success:
-        graphics_driver.WriteLn("rm: Syntax error")
+        graphics_driver.WriteLn("rm: Syntax error: rm -rf for folders, rm for files.")
 
 
 def createuser(*args):
