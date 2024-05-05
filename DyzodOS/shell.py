@@ -28,9 +28,12 @@ def cd(*args):
     else:
         new_path = f"{pathlocation}"
         # Check if the new path exists
-        # TODO check double slash
         if os.path.exists(f"{settings.get_dir()}{new_path}"):
-            settings.current_path += f"/{new_path}"
+            
+            if len(settings.current_path) > 0:
+                settings.current_path += "/"
+
+            settings.current_path += f"{new_path}"
         else:
             graphics_driver.WriteLn("Directory not found.")
 
