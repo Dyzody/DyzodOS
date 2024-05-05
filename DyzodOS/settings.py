@@ -50,3 +50,7 @@ def get_dir():
         current += "/"
 
     return current
+
+def reset():
+    global StdOut_offset
+    StdOut_offset = vectors.Vector2D(0, 0)

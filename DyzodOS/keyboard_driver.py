@@ -15,6 +15,8 @@ def log_keystroke(event):
 
     if key_name == "enter":
         CollectingInput = False
+    elif key_name == "esc":
+        settings.reset()
     elif key_name == "backspace":
         InputBuffer = InputBuffer[:-1]
     elif key_name == "space":
