@@ -9,7 +9,7 @@ Here is a list of all commands:
 
 SCREEN_SIZE = vectors.Vector2D(1000, 800)
 REFRESH_RATE = 5
-Fullscreen = True
+Fullscreen = False
 
 Font = "Fonts/DOS.ttf"
 Font_Size = 40
@@ -41,6 +41,7 @@ Hard_Drive = Hard_Drive_Name
 IsGraphicsRunning = True
 screen, clock = None, None
 StdOut_offset = vectors.Vector2D(0, 0)
+Bottomrow_offset = vectors.Vector2D(0, 0)
 PreRenderBottomLine = ""
 
 def get_dir():
@@ -53,4 +54,6 @@ def get_dir():
 
 def reset():
     global StdOut_offset
+    global Bottomrow_offset
     StdOut_offset = vectors.Vector2D(0, 0)
+    Bottomrow_offset = vectors.Vector2D(0, 0)

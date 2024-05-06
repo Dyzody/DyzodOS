@@ -34,7 +34,10 @@ def WaitForMedia():
 
     hard_drive.Create()
 
-def Command(*args):
+def Command(command):
+    
+    args = command.split()
+
     if args:
         cmd = args[0]
         cmd = cmd.lower()
@@ -47,8 +50,7 @@ def Command(*args):
 def ListenForCommands():
     while settings.IsGraphicsRunning:
         command = keyboard_driver.Keyboard_Input()
-        split = command.split()
-        Command(*split)
+        Command(command)
 
 def Bootloader():
     time.sleep(1)
