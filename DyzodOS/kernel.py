@@ -46,6 +46,9 @@ def Command(command):
             app(*args)
         except Exception as error:
             graphics_driver.WriteLn(f"Error occurred: {error}")
+            return error
+        if not error:
+            return "Operation completed successfully"
         
 def ListenForCommands():
     while settings.IsGraphicsRunning:
