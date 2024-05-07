@@ -33,7 +33,7 @@ def RenderStdOut(Flush=True):
 #Function deals with Paragraphs
 def WriteLn(Text):
     global StdOut
-    max_line_length = settings.max_line_len
+    max_line_length = settings.max_line_length
     
     if len(StdOut) > settings.Max_StdOut_Len:
         del StdOut[0]

@@ -13,9 +13,10 @@ if not hard_drive.GetClusterByName("Users"):
     hard_drive.AddCluster("Users", "")
 
 class User:
-    def __init__(self, Name, pw, write_to_disk=True):
+    def __init__(self, Name, pw, is_admin=False, write_to_disk=True):
         self.Name = Name
         self.pw = pw
+        self.is_admin = is_admin
         users.append(self)
         usernames.append(self.Name)
         if write_to_disk:
@@ -51,6 +52,12 @@ def Login(Name, PW):
 import time
 
 def UserSetup(AllowCancel=True):
+    
+    firstSetup = True
+
+    if len(users) > 0:
+        firstSetup = False
+
     while True:
         time.sleep(0.3)
         graphics_driver.WriteLn("LOGIN or SIGNUP ?")
@@ -96,12 +103,15 @@ def UserSetup(AllowCancel=True):
                 continue
             graphics_driver.WriteLn("Passwort eingeben")
             Password = keyboard_driver.Keyboard_Input()
+            if firstSetup:
+                graphics_driver.WriteLn("Da du der erste Nutzer bist hast du Administratorrechte.")
             graphics_driver.WriteLn(f"Hallo {NewUser} dein Passwort ist {Password}. Ist das korrekt? JA / NEIN")
-            CONFIRM = keyboard_driver.Keyboard_Input()
-            CONFIRM = CONFIRM.upper()
-            if CONFIRM == "NEIN":
+            confirm = keyboard_driver.Keyboard_Input()
+            confirm = confirm.upper()
+            if confirm == "NEIN":
                 graphics_driver.WriteLn("Neustart des Programms")
                 continue
-            User(NewUser, Password)
+
+            User(Name=NewUser, pw=Password, is_admin=firstSetup)
             graphics_driver.WriteLn("Nutzer erfolgreich erstellt. Bitte melde dich nun an.")
             time.sleep(0.1)
