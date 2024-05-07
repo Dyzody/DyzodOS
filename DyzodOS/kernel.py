@@ -47,8 +47,6 @@ def Command(command):
         except Exception as error:
             graphics_driver.WriteLn(f"Error occurred: {error}")
             return error
-        if not error:
-            return "Operation completed successfully"
         
 def ListenForCommands():
     while settings.IsGraphicsRunning:
@@ -86,6 +84,7 @@ def InitKernel():
     WaitForMedia()
     users.OnBoot()
     users.UserSetup(AllowCancel=False)
+    print("Starting Main Shell Thread")
     Shell_Thread = threading.Thread(target=ListenForCommands)
     Shell_Thread.start()
     graphics_driver.WriteLn("Setup Complete")
