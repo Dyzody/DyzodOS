@@ -91,5 +91,5 @@ def InitKernel():
     graphics_driver.WriteLn("TYPE HELP FOR HELP")
 
 
-
-InitKernel()
+if __name__ == '__main__':
+    InitKernel()

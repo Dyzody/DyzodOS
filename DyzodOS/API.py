@@ -1,6 +1,8 @@
 import kernel
+import settings
 import graphics_driver
 import keyboard_driver
+from vectors import Vector2D
 
 #Writes a simple line of Text to StdOut
 def WriteLine(Text:str) -> None:
@@ -8,11 +10,12 @@ def WriteLine(Text:str) -> None:
 
 #Get a written line by the User
 #Returns what the user sends via ENTER
-def GetInput() -> None:
+def GetInput() -> str:
     return keyboard_driver.Keyboard_Input()
 
 #Runs a shell command
-def RunCommand(command:str, caller="Application") -> str:
-    print(f"{caller} executing command: {command} EOF")
+def RunCommand(command:str, echo=False, caller="Application") -> str:
+    if echo:
+        WriteLine(f"{caller} executing command: {command} EOF")
     result = kernel.Command(command)
     return result

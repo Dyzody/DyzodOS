@@ -8,10 +8,11 @@ from pygame.locals import *
 import settings
 
 DELIMITER = settings.DELIMITER
-
 pygame.font.init()
 font = pygame.font.Font(settings.Font, settings.Font_Size)
-#font = pygame.font.SysFont(settings.Font, settings.Font_Size)
+
+render_frame_functions = []
+render_frame_params = []
 StdOut = []
 
 Bottom_Row = font.render("", True, settings.TextColour, None)
@@ -25,6 +26,18 @@ def GetLinePos(Index=0):
     
     return LinePosition
 
+def onrenderframe(func, params) -> int:
+    render_frame_functions.append(func)
+    render_frame_params.append(params)
+    return len(render_frame_functions)-1
+
+def unbindfromframe(index) -> None:
+    del render_frame_functions[index]
+    del render_frame_params[index]
+
+def DrawRect(pos:Vector2D, size:Vector2D, color:tuple=settings.WHITE):
+    pygame.draw.rect(settings.screen, color, (pos.x, pos.y, size.x, size.y))
+
 def Render_Shell():
     
     for Index, TextObj in enumerate(StdOut):
@@ -36,7 +49,6 @@ def Render_Shell():
         #print(f"Rendered TextObject {StdOut}")
 
 def Render_User_Input():
-    
     UserLinePos = Vector2D(0, settings.SCREEN_SIZE.y-StdOut_Render_Offset_Mul - settings.Bottomrow_offset.y)
     settings.screen.blit(Bottom_Row, (UserLinePos.x, UserLinePos.y))
 
@@ -101,6 +113,10 @@ def InitGraphics(Fullscreen):
             if event.type == pygame.QUIT:
                 isRunning = False
         settings.screen.fill(settings.Background)
+        
+        for index, func in enumerate(render_frame_functions):
+            func(*render_frame_params[index])
+
         RenderStdOut()
         pygame.display.flip()
     
