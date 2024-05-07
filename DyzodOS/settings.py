@@ -13,12 +13,12 @@ Fullscreen = False
 
 Font = "Fonts/DOS.ttf"
 Font_Size = 40
-Line_Spacing = 5
+Line_Spacing = 1.2
 
 Font_To_Pixel_Ratio = Font_Size * 0.75
 
 max_line_length = int(SCREEN_SIZE.x/Font_To_Pixel_Ratio)
-Max_StdOut_Len = 100
+Max_StdOut_Len = 10
 
 CurrentUser = None
 
@@ -44,6 +44,7 @@ Hard_Drive = Hard_Drive_Name
 IsGraphicsRunning = True
 screen, clock = None, None
 StdOut_offset = vectors.Vector2D(0, 0)
+StdOut_offset_from_line_anmount = vectors.Vector2D(0, 0)
 Bottomrow_offset = vectors.Vector2D(0, 0)
 PreRenderBottomLine = ""
 

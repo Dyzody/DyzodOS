@@ -18,10 +18,19 @@ Bottom_Row = font.render("", True, settings.TextColour, None)
 
 StdOut_Render_Offset_Mul = settings.Font_Size
 
+def GetLinePos(Index=0):
+    
+    y = (Index + settings.StdOut_offset.y + settings.StdOut_offset_from_line_anmount.y) * settings.Line_Spacing * settings.Font_To_Pixel_Ratio
+    LinePosition = Vector2D(0, y)
+    
+    return LinePosition
+
 def Render_Shell():
+    
     for Index, TextObj in enumerate(StdOut):
         
-        LinePosition = Vector2D(0, Index*settings.Font_To_Pixel_Ratio + settings.StdOut_offset.y * StdOut_Render_Offset_Mul * settings.Line_Spacing)
+        LinePosition = GetLinePos(Index=Index)
+        #Index*settings.Font_To_Pixel_Ratio + settings.StdOut_offset.y * StdOut_Render_Offset_Mul * settings.Line_Spacing)
 
         settings.screen.blit(TextObj, (LinePosition.x, LinePosition.y))
         #print(f"Rendered TextObject {StdOut}")
@@ -41,7 +50,7 @@ def RenderStdOut():
 def WriteLn(Text):
     global StdOut
     max_line_length = settings.max_line_length
-    
+
     if len(StdOut) > settings.Max_StdOut_Len:
         del StdOut[0]
 
