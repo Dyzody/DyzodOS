@@ -11,8 +11,7 @@ DELIMITER = settings.DELIMITER
 pygame.font.init()
 font = pygame.font.Font(settings.Font, settings.Font_Size)
 
-render_frame_functions = []
-render_frame_params = []
+render_frame_functions = {}
 StdOut = []
 
 Bottom_Row = font.render("", True, settings.TextColour, None)
@@ -26,25 +25,20 @@ def GetLinePos(Index=0):
     
     return LinePosition
 
-def onrenderframe(func, params) -> int:
-    render_frame_functions.append(func)
-    render_frame_params.append(params)
-    return len(render_frame_functions)-1
+def onrenderframe(func, params) -> str:
+    Obj_Reference = f"FUN {len(render_frame_functions)}"
+    render_frame_functions[Obj_Reference] = (func, (params))
+    return Obj_Reference
 
-def unbindfromframe(index) -> None:
-    del render_frame_functions[index]
-    del render_frame_params[index]
+def unbindfromframe(Obj_Reference) -> None:
+    del render_frame_functions[Obj_Reference]
 
-def DrawRect(pos:Vector2D, size:Vector2D, color:tuple=settings.WHITE):
-    pygame.draw.rect(settings.screen, color, (pos.x, pos.y, size.x, size.y))
+def DrawRect(pos:Vector2D, size:Vector2D, color:tuple=settings.WHITE) -> pygame.rect:
+    return pygame.draw.rect(settings.screen, color, (pos.x, pos.y, size.x, size.y))
 
 def Render_Shell():
-    
     for Index, TextObj in enumerate(StdOut):
-        
         LinePosition = GetLinePos(Index=Index)
-        #Index*settings.Font_To_Pixel_Ratio + settings.StdOut_offset.y * StdOut_Render_Offset_Mul * settings.Line_Spacing)
-
         settings.screen.blit(TextObj, (LinePosition.x, LinePosition.y))
         #print(f"Rendered TextObject {StdOut}")
 
@@ -114,8 +108,17 @@ def InitGraphics(Fullscreen):
                 isRunning = False
         settings.screen.fill(settings.Background)
         
-        for index, func in enumerate(render_frame_functions):
-            func(*render_frame_params[index])
+        #print(f"Function contains {render_frame_functions}")
+
+        frame_functions_copy = render_frame_functions.copy()
+
+        for function_reference in frame_functions_copy:
+            #print(function_reference)
+            funct, params = frame_functions_copy[function_reference]
+            if isinstance(params, tuple):
+                funct(*params)
+            else:
+                funct(params)
 
         RenderStdOut()
         pygame.display.flip()

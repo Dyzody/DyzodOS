@@ -19,3 +19,6 @@ def RunCommand(command:str, echo=False, caller="Application") -> str:
         WriteLine(f"{caller} executing command: {command} EOF")
     result = kernel.Command(command)
     return result
+
+def ClearOutput() -> None:
+    kernel.FlushStdOut()

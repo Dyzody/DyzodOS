@@ -16,5 +16,4 @@ def GetDataType(Inp, OutputType):
             raise ValueError("Input must be a string or bytes")
     else:
         raise ValueError("OutputType must be 'string' or 'bytes'")
-
     return result
