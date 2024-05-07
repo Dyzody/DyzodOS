@@ -41,15 +41,13 @@ def run(*args):
     if len(args) < 2:
         graphics_driver.WriteLn("Error: no filename")
         return
-    
+
     file_name = args[1]
     file_path = os.path.join(f"{settings.get_dir()}{file_name}")
-    #print(file_path)
     
     if not os.path.isfile(file_path):
         graphics_driver.WriteLn(f"Error: File '{file_name}' not found.")
         return
-
     try:
         with open(file_path) as f:
             script_code = f.read()
