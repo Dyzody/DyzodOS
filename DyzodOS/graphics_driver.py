@@ -2,6 +2,7 @@ from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
 import pygame
+from vectors import Vector2D
 import pygame.freetype
 from pygame.locals import *
 import settings
@@ -15,19 +16,25 @@ StdOut = []
 
 Bottom_Row = font.render("", True, settings.TextColour, None)
 
-StdOut_Render_Offset_Mul = settings.Font_Size*settings.Line_Spacing
+StdOut_Render_Offset_Mul = settings.Font_Size
+
+def Render_Shell():
+    for Index, TextObj in enumerate(StdOut):
+        
+        LinePosition = Vector2D(0, Index*settings.Font_To_Pixel_Ratio + settings.StdOut_offset.y * StdOut_Render_Offset_Mul * settings.Line_Spacing)
+
+        settings.screen.blit(TextObj, (LinePosition.x, LinePosition.y))
+        #print(f"Rendered TextObject {StdOut}")
+
+def Render_User_Input():
+    
+    UserLinePos = Vector2D(0, settings.SCREEN_SIZE.y-StdOut_Render_Offset_Mul - settings.Bottomrow_offset.y)
+    settings.screen.blit(Bottom_Row, (UserLinePos.x, UserLinePos.y))
 
 #Render the Console Output
-def RenderStdOut(Flush=True):
-    if Flush:
-        settings.screen.fill(settings.Background)
-    for Index, TextObj in enumerate(StdOut):
-        settings.screen.blit(TextObj, (0, 0+Index*StdOut_Render_Offset_Mul
-                                       + settings.StdOut_offset.y * StdOut_Render_Offset_Mul))
-        #print(f"Rendered TextObject {StdOut}")
-    settings.screen.blit(Bottom_Row, (0, settings.SCREEN_SIZE.y-StdOut_Render_Offset_Mul
-                                      -settings.Bottomrow_offset.y))
-    pygame.display.flip()
+def RenderStdOut():
+    Render_Shell()
+    Render_User_Input()
 
 #This adds a line to StdOut
 #Function deals with Paragraphs
@@ -45,7 +52,7 @@ def WriteLn(Text):
     lines.append(Text)
 
     # Render each line
-    for index, line in enumerate(lines):
+    for line in lines:
         #print(f"Current: {line}")
         textSurfaceObj = font.render(line, True, settings.TextColour, None)
         StdOut.append(textSurfaceObj)
@@ -72,6 +79,7 @@ def InitGraphics(Fullscreen):
 
     if screen == None or clock == None:
         print("Error Initializing Graphics: Missing Components")
+        return
 
     settings.screen = screen
     settings.clock = clock
@@ -83,6 +91,8 @@ def InitGraphics(Fullscreen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 isRunning = False
-        RenderStdOut(True)
+        settings.screen.fill(settings.Background)
+        RenderStdOut()
+        pygame.display.flip()
     
     settings.IsGraphicsRunning = False

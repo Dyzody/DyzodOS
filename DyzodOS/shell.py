@@ -44,7 +44,7 @@ def run(*args):
     
     file_name = args[1]
     file_path = os.path.join(f"{settings.get_dir()}{file_name}")
-    print(file_path)
+    #print(file_path)
     
     if not os.path.isfile(file_path):
         graphics_driver.WriteLn(f"Error: File '{file_name}' not found.")

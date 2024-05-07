@@ -13,9 +13,9 @@ Fullscreen = False
 
 Font = "Fonts/DOS.ttf"
 Font_Size = 40
-Line_Spacing = 1
+Line_Spacing = 5
 
-Font_To_Pixel_Ratio = Font_Size * 0.6
+Font_To_Pixel_Ratio = Font_Size * 0.75
 
 max_line_length = int(SCREEN_SIZE.x/Font_To_Pixel_Ratio)
 Max_StdOut_Len = 100

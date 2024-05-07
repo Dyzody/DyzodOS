@@ -1,5 +1,4 @@
 import math
-import numpy
 
 class Vector2D:
     def __init__(self, x, y):
