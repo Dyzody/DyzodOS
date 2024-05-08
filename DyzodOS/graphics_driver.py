@@ -30,6 +30,10 @@ def onrenderframe(func, params) -> str:
     render_frame_functions[Obj_Reference] = (func, (params))
     return Obj_Reference
 
+def changerenderparams(Obj_Reference, newparams):
+    func, params = render_frame_functions[Obj_Reference]
+    render_frame_functions[Obj_Reference] = (func, (newparams))
+
 def unbindfromframe(Obj_Reference) -> None:
     del render_frame_functions[Obj_Reference]
 
@@ -115,6 +119,10 @@ def InitGraphics(Fullscreen):
         for function_reference in frame_functions_copy:
             #print(function_reference)
             funct, params = frame_functions_copy[function_reference]
+            print(params)
+            
+            print(*params[0].InText())
+            
             if isinstance(params, tuple):
                 funct(*params)
             else:
