@@ -86,10 +86,7 @@ def UserSetup(AllowCancel=True):
             pw = keyboard_driver.Keyboard_Input()
             Success = Login(user, pw)
 
-            graphics_driver.WriteLn(f"Success: {str(Success)}")
-
-            if Success: 
-                graphics_driver.WriteLn("Returning Function")
+            if Success:
                 return
             else:
                 graphics_driver.WriteLn("Anmeldung fehlgeschlagen")

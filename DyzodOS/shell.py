@@ -13,6 +13,7 @@ import inspect
 
 def dir(*args):
     directory = settings.get_dir()
+    graphics_driver.WriteLn(f"Contents of directory {directory}:")
     dir_list = os.listdir(directory)
     
     for obj in dir_list:

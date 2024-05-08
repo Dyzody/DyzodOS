@@ -87,7 +87,7 @@ def InitKernel():
     print("Starting Main Shell Thread")
     Shell_Thread = threading.Thread(target=ListenForCommands)
     Shell_Thread.start()
-    graphics_driver.WriteLn("Setup Complete")
+    graphics_driver.WriteLn("Success in starting Shell")
     graphics_driver.WriteLn("TYPE HELP FOR HELP")
 
 
