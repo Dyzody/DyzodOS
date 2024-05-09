@@ -18,7 +18,7 @@ Bottom_Row = font.render("", True, settings.TextColour, None)
 
 StdOut_Render_Offset_Mul = settings.Font_Size
 
-def GetLinePos(Index=0):
+def GetLinePos(Index=0) -> Vector2D:
     
     y = (Index + settings.StdOut_offset.y + settings.StdOut_offset_from_line_anmount.y) * settings.Line_Spacing * settings.Font_To_Pixel_Ratio
     LinePosition = Vector2D(0, y)
@@ -30,7 +30,11 @@ def onrenderframe(func, params) -> str:
     render_frame_functions[Obj_Reference] = (func, (params))
     return Obj_Reference
 
-def changerenderparams(Obj_Reference, newparams):
+def getrenderparams(Obj_Reference) -> tuple:
+    func, params = render_frame_functions[Obj_Reference]
+    return params
+
+def changerenderparams(Obj_Reference, newparams) -> None:
     func, params = render_frame_functions[Obj_Reference]
     render_frame_functions[Obj_Reference] = (func, (newparams))
 
@@ -40,24 +44,24 @@ def unbindfromframe(Obj_Reference) -> None:
 def DrawRect(pos:Vector2D, size:Vector2D, color:tuple=settings.WHITE) -> pygame.rect:
     return pygame.draw.rect(settings.screen, color, (pos.x, pos.y, size.x, size.y))
 
-def Render_Shell():
+def Render_Shell() -> None:
     for Index, TextObj in enumerate(StdOut):
         LinePosition = GetLinePos(Index=Index)
         settings.screen.blit(TextObj, (LinePosition.x, LinePosition.y))
         #print(f"Rendered TextObject {StdOut}")
 
-def Render_User_Input():
+def Render_User_Input() -> None:
     UserLinePos = Vector2D(0, settings.SCREEN_SIZE.y-StdOut_Render_Offset_Mul - settings.Bottomrow_offset.y)
     settings.screen.blit(Bottom_Row, (UserLinePos.x, UserLinePos.y))
 
 #Render the Console Output
-def RenderStdOut():
+def RenderStdOut() -> None:
     Render_Shell()
     Render_User_Input()
 
 #This adds a line to StdOut
 #Function deals with Paragraphs
-def WriteLn(Text):
+def WriteLn(Text) -> None:
     global StdOut
     max_line_length = settings.max_line_length
 
@@ -77,13 +81,13 @@ def WriteLn(Text):
         StdOut.append(textSurfaceObj)
 
 #The bottom row is where the User input is at
-def WriteBottomRow(Text):
+def WriteBottomRow(Text) -> None:
     global Bottom_Row
     Bottom_Row = font.render(f"{settings.PreRenderBottomLine}{settings.get_dir()} {Text}", 
                              True, settings.TextColour, None)
 
 #Rendering Loop
-def InitGraphics(Fullscreen):
+def InitGraphics(Fullscreen) -> None:
     isRunning = True
     
     pygame.init()
@@ -131,4 +135,5 @@ def InitGraphics(Fullscreen):
         RenderStdOut()
         pygame.display.flip()
     
-    settings.IsGraphicsRunning = False
+    settings.IsGraphicsRunning = False#
+    return False
