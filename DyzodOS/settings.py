@@ -11,6 +11,9 @@ SCREEN_SIZE = vectors.Vector2D(1000, 800)
 REFRESH_RATE = 5
 Fullscreen = False
 
+InputBuffer = ""
+CollectingInput = False
+
 Font = "Fonts/DOS.ttf"
 Font_Size = 40
 Line_Spacing = 1.2
@@ -20,6 +23,7 @@ Font_To_Pixel_Ratio = Font_Size * 0.75
 max_line_length = int(SCREEN_SIZE.x/Font_To_Pixel_Ratio)
 Max_StdOut_Len = 10
 
+currentpygame = None
 CurrentUser = None
 
 BLACK = (0, 0, 0)

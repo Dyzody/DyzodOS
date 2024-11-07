@@ -1,6 +1,7 @@
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
+import keyboard_driver
 import pygame
 from vectors import Vector2D
 import pygame.freetype
@@ -82,6 +83,7 @@ def WriteLn(Text) -> None:
 
 #The bottom row is where the User input is at
 def WriteBottomRow(Text) -> None:
+    print("Rendering: " + Text)
     global Bottom_Row
     Bottom_Row = font.render(f"{settings.PreRenderBottomLine}{settings.get_dir()} {Text}", 
                              True, settings.TextColour, None)
@@ -89,8 +91,9 @@ def WriteBottomRow(Text) -> None:
 #Rendering Loop
 def InitGraphics(Fullscreen) -> None:
     isRunning = True
-    
+
     pygame.init()
+    settings.currentpygame = pygame
     screen = None
     
     if Fullscreen:
@@ -112,8 +115,16 @@ def InitGraphics(Fullscreen) -> None:
     while isRunning:
         #print("Running")
         for event in pygame.event.get():
+            #print(event)
             if event.type == pygame.QUIT:
                 isRunning = False
+            if event.type == pygame.TEXTINPUT:
+                keyboard_driver.log_keystroke_text(event)
+                WriteBottomRow(settings.InputBuffer)
+            if event.type == pygame.KEYDOWN:
+                keyboard_driver.log_otherinp(event)
+                WriteBottomRow(settings.InputBuffer)
+                
         settings.screen.fill(settings.Background)
         
         #print(f"Function contains {render_frame_functions}")

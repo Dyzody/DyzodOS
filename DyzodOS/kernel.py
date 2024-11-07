@@ -72,11 +72,6 @@ def InitKernel():
     print("Starting Main Graphics Thread")
     Graphics_Thread = threading.Thread(target=graphics_driver.InitGraphics, args=[settings.Fullscreen])
     Graphics_Thread.start()
-
-    #Keyboard Thread
-    print("Starting Main Keyboard Thread")
-    Keyboard_Driver_Thread = threading.Thread(target=keyboard_driver.Init)
-    Keyboard_Driver_Thread.start()
     
     graphics_driver.WriteLn("System Daemon started")
 
