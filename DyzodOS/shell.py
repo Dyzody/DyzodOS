@@ -11,7 +11,7 @@ import hard_drive
 import users
 import inspect
 
-def dir(*args):
+def ls(*args):
     directory = settings.get_dir()
     graphics_driver.WriteLn(f"Contents of directory {directory}:")
     dir_list = os.listdir(directory)
@@ -61,7 +61,7 @@ def help(*args):
     function_names = [name for name, obj in globals_dict.items() if callable(obj) and inspect.isfunction(obj)]
     graphics_driver.WriteLn(f"{settings.HELP_PROMPT} {function_names}")
 
-def cls(*args):
+def clear(*args):
     graphics_driver.StdOut = []
 
 def whoami(*args):
@@ -77,7 +77,7 @@ def rm(*args):
     remove_folder = False
 
     #Protect the user from themself
-    if args[1] == "-rf":
+    if args[1] == "-r":
         name = args[2]
         remove_folder = True
     else:

@@ -49,7 +49,7 @@ IsGraphicsRunning = True
 screen, clock = None, None
 StdOut_offset = vectors.Vector2D(0, 0)
 StdOut_offset_from_line_anmount = vectors.Vector2D(0, 0)
-Bottomrow_offset = vectors.Vector2D(0, 0)
+Bottomrow_offset = vectors.Vector2D(0, 50)
 PreRenderBottomLine = ""
 
 def get_dir():
